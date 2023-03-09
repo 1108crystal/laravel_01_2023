@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // 新增
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HotelController;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,13 @@ use App\Http\Controllers\HotelController;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    $data=Student::get();
+    return view('student.index',['data'=>$data]);
 });
 
 Route::get('/sss', function () {
@@ -32,6 +38,9 @@ Route::get('/sss', function () {
 Route::get('student_excel', [StudentController::class,'excel'])->name('excel');
 Route::get('student_child', [StudentController::class,'childPage']);
 Route::get('student/bbb', [StudentController::class,'ccc'])->name('aaa');
+
+// Route::get('create', [StudentController::class,'student.create']);
+// Route::get('store', [StudentController::class,'student.store']);
 
 Route::resource('student', StudentController::class);
 

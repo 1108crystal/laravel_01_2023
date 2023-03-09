@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
+
 
 class StudentController extends Controller
 {
@@ -11,23 +13,11 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
 
-        // $data=[
-        //     'name'=>'crystal',
-        //     'arg'=>'18'
-        // ];
-        $data=[
-            ['name'=>'amy',
-            'mobile'=>'0911-111-111'],
-            ['name'=>'bob',
-            'mobile'=>'092-222-222'],
-            ['name'=>'cat',
-            'mobile'=>'0933-333-333'],
-            ['name'=>'dig',
-            'mobile'=>'0944-444-444'],         
-        ];
-
+        $data=Student::get();
+        // $data=Student::take(1)->get(); //一筆
+        // dd($data);
+        
         return view('student.index',['data'=>$data]);
 
 
@@ -44,6 +34,9 @@ class StudentController extends Controller
     public function create()
     {
         //
+        // dd('hello create');
+        return view('student.create');
+
     }
 
     /**
@@ -52,6 +45,14 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        $data = new Student;
+        $data->name=$request->name;
+        $data->age=$request->age;
+        $data->tel=$request->tel;
+        $data->email=$request->email;
+        $data->save();
+        return redirect()->route('student.index');
+
     }
 
     /**
